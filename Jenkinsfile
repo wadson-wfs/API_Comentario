@@ -69,5 +69,6 @@ pipeline {
             steps{
                 sh 'rm -rf /var/lib/jenkins/workspace/*'
             }
+        }
     }
 }
