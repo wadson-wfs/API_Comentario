@@ -65,11 +65,6 @@ pipeline {
                 sh '/usr/local/bin/kubectl apply -f ./k3s/app-ingress.yaml --validate=false'
             }
         }
-        stage('Limpeza do Workspace'){
-            steps{
-                sh 'rm -rf /var/lib/jenkins/workspace/*'
-            }
-        }
         stage('Limpar Imagens Docker') {
             steps {
         sh 'docker rmi $(docker images -a -q)'
