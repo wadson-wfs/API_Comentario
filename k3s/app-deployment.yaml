@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: comentarios-app
-        image: http://192.168.10.5:8081/repository/docker-repo/devops/app:latest
+        image: devops/app:latest
         ports:
         - containerPort: 5000
         resources:
