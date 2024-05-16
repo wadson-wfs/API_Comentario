@@ -70,5 +70,10 @@ pipeline {
                 sh 'rm -rf /var/lib/jenkins/workspace/*'
             }
         }
+        stage('Limpar Imagens Docker') {
+            steps {
+        sh 'docker rmi $(docker images -a -q)'
+            }
+        }
     }
 }
