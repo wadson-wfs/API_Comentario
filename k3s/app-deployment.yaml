@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: comentarios-app
-        image: l192.168.10.5:8123/devops/app:TAG
+        image: http://192.168.10.5:8123/devops/app:TAG
         ports:
         - containerPort: 5000
         resources:
