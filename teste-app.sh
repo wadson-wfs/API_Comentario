@@ -43,9 +43,9 @@ curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -d '{
 
 # List comments for article 1
 curl_result=$(curl -sv "$API_URL/list/1")
-curl_status_code=$(echo $curl_result | grep -Eo '[0-9]+' | head -n 1)
+curl_status_code=$(echo "$curl_result" | jq -r '.status')
 
-if [ "$curl_status_code" -eq 200 ]; then
+if [ "$curl_status_code" = "200" ]; then
   echo "Listagem de comentários para o artigo 1: Sucesso (código de status 200)"
 else
   echo "Erro ao listar comentários para o artigo 1: Código de status $curl_status_code"
@@ -54,9 +54,9 @@ fi
 
 # List comments for article 2
 curl_result=$(curl -sv "$API_URL/list/2")
-curl_status_code=$(echo $curl_result | grep -Eo '[0-9]+' | head -n 1)
+curl_status_code=$(echo "$curl_result" | jq -r '.status')
 
-if [ "$curl_status_code" -eq 200 ]; then
+if [ "$curl_status_code" = "200" ]; then
   echo "Listagem de comentários para o artigo 2: Sucesso (código de status 200)"
 else
   echo "Erro ao listar comentários para o artigo 2: Código de status $curl_status_code"
