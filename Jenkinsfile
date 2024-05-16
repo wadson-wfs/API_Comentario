@@ -65,10 +65,5 @@ pipeline {
                 sh '/usr/local/bin/kubectl apply -f ./k3s/app-ingress.yaml --validate=false'
             }
         }
-        stage('Limpar Imagens Docker') {
-            steps {
-        sh 'docker rmi $(docker images -a -q)'
-            }
-        }
     }
 }
