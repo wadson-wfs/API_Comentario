@@ -43,22 +43,22 @@ curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -d '{
 
 # List comments for article 1
 curl_result=$(curl -sv "$API_URL/list/1")
-curl_status_code=$(echo "$curl_result" | jq -r '.status')
+curl_status_code=$(echo "$curl_result" | jq -r '. | length')
 
-if [ "$curl_status_code" = "200" ]; then
+if [ "$curl_status_code" -gt 0 ]; then
   echo "Listagem de comentários para o artigo 1: Sucesso (código de status 200)"
 else
-  echo "Erro ao listar comentários para o artigo 1: Código de status $curl_status_code"
+  echo "Erro ao listar comentários para o artigo 1: A resposta está vazia ou no formato incorreto"
   exit 1
 fi
 
 # List comments for article 2
 curl_result=$(curl -sv "$API_URL/list/2")
-curl_status_code=$(echo "$curl_result" | jq -r '.status')
+curl_status_code=$(echo "$curl_result" | jq -r '. | length')
 
-if [ "$curl_status_code" = "200" ]; then
+if [ "$curl_status_code" -gt 0 ]; then
   echo "Listagem de comentários para o artigo 2: Sucesso (código de status 200)"
 else
-  echo "Erro ao listar comentários para o artigo 2: Código de status $curl_status_code"
+  echo "Erro ao listar comentários para o artigo 2: A resposta está vazia ou no formato incorreto"
   exit 1
 fi
