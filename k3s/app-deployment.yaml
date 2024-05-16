@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: comentarios-app
-        image: devops/app:latest
+        image: devops/app:TAG
         ports:
         - containerPort: 5000
         resources:
