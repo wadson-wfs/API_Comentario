@@ -58,9 +58,9 @@ pipeline {
         }
         stage('Apply k8s files'){
             steps{
-                sh '/usr/local/bin/kubectl apply -f ./k3s/app-deployment --validate=false'
-                sh '/usr/local/bin/kubectl apply -f ./k3s/app-service --validate=false'
-                sh '/usr/local/bin/kubectl apply -f ./k3s/app-ingress --validate=false'
+                sh '/usr/local/bin/kubectl apply -f ./k3s/app-deployment.yaml --validate=false'
+                sh '/usr/local/bin/kubectl apply -f ./k3s/app-service.yaml --validate=false'
+                sh '/usr/local/bin/kubectl apply -f ./k3s/app-ingress.yaml --validate=false'
             }
         }
     }
