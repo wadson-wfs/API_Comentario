@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: comentarios-app
-        image: http://192.168.10.5:8123/devops/app:TAG
+        image: 192.168.10.5:8123/devops/app:TAG
         ports:
         - containerPort: 5000
         resources:
@@ -25,3 +25,5 @@ spec:
           limits:
             cpu: "200m"
             memory: "256Mi"
+      imagePullSecrets:
+      - name: jenkins
