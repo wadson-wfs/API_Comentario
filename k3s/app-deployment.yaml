@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: comentarios-app
-        image: ${NEXUS_URL}/devops/app:latest
+        image: http://localhost:8081/repository/docker-repo/devops/app:latest
         ports:
         - containerPort: 5000
         resources:
