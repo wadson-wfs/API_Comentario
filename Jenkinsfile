@@ -65,5 +65,11 @@ pipeline {
                 sh '/usr/local/bin/kubectl apply -f ./k3s/app-ingress.yaml --validate=false'
             }
         }
+        stage('Criando Comentario'){
+            steps{
+                sh 'chmod +x criando-comentario.sh'
+                sh './criando-comentario.sh.sh'
+            }
+        }
     }
 }
