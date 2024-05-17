@@ -4,6 +4,11 @@ Este projeto é uma implementação prática de uma API REST chamada "API Coment
 # Objetivo do Projeto
 O principal objetivo deste projeto é criar uma infraestrutura automatizada que suporte a operação da API Comentários de forma eficiente e escalável. Para isso, foram adotadas práticas de Infraestrutura como Código (IaC), entrega e integração contínua (CI/CD)e um sistema de monitoramento para garantir a performance e a disponibilidade da aplicação.
 
+# Arquitetura e Ferramentas da Solução de Automação para API Comentários
+Para o desenvolvimento e implantação da API Comentários, o GitHub foi escolhido como o repositório central do código. O Jenkins foi utilizado para implementar o processo de Integração e Entrega Contínua (CI/CD), automatizando a construção, teste e implantação da aplicação. O SonarQube foi empregado para a análise de vulnerabilidades e qualidade do código. Para o armazenamento e distribuição das imagens Docker, utilizou-se o Nexus, enquanto o Kubernetes, na forma específica do K3s, foi usado para implantar a aplicação em um cluster local.
+
+Quanto à infraestrutura, o Oracle VirtualBox foi escolhido para hospedar as Máquinas Virtuais (VMs). O Vagrant foi utilizado como a ferramenta de Infraestrutura como Código (IaC) para provisionar e gerenciar essas VMs.
+
 # Considerações Gerais
 Ter instalado no WINDOWS:
 - Oracle VM Virtual BOX instalado
