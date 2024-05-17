@@ -147,3 +147,7 @@ copie a senha
 5. Marque: "Accept incoming requests"
 6. Marque "HTTP": `8123`
 7. Clique em "Save"
+
+# Prometheus / Grafana - Instalação
+1. Acessar a pasta `\VMs\PrometheusGrafana`
+2. Executar: `vagrant up`
