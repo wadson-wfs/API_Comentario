@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Atualização do sistema e instalação de ferramentas básicas
+# Atualização do sistema e instalação de utilitários
 yum update -y
 yum install epel-release -y
 yum install wget git net-tools telnet unzip java-11-openjdk-devel -y
@@ -48,15 +48,19 @@ docker run -d -p 8081:8081 -p 8123:8123 --name nexus -v nexus-data:/nexus-data s
 curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
 
-# Criação de um arquivo de unidade Systemd para o Nexus
+# Criação do arquivo de serviço do Nexus
 echo "[Unit]" > /etc/systemd/system/nexus.service
 echo "Description=Nexus Docker Container" >> /etc/systemd/system/nexus.service
 echo "After=docker.service" >> /etc/systemd/system/nexus.service
 echo "" >> /etc/systemd/system/nexus.service
 echo "[Service]" >> /etc/systemd/system/nexus.service
-echo "Type=simple" >> /etc/systemd/system/nexus.service
-echo "User=jenkins" >> /etc/systemd/system/nexus.service
-echo "ExecStart=/usr/bin/docker run -d -p 8081:8081 -
+echo "Type=oneshot" >> /etc/systemd/system/nexus.service
+echo "RemainAfterExit=yes" >> /etc/systemd/system/nexus.service
+echo "ExecStartPre=/usr/bin/docker start nexus || true" >> /etc/systemd/system/nexus.service
+echo "ExecStart=/usr/bin/docker start nexus" >> /etc/systemd/system/nexus.service
+echo "" >> /etc/systemd/system/nexus.service
+echo "[Install]" >> /etc/systemd/system/nexus.service
+echo "WantedBy=multi-user.target" >> /etc/systemd/system/nexus.service
 
 # Habilitar a inicialização automática de serviços
 sudo systemctl enable jenkins
@@ -64,12 +68,6 @@ sudo systemctl enable docker
 sudo systemctl enable nexus
 
 # Validando a instalação
-echo "Validando instalação..."
-echo "Serviços instalados:"
 systemctl status jenkins docker nexus | grep active
-echo "Verificando Sonar Scanner..."
 sonar-scanner --version
-echo "Verificando kubectl..."
 kubectl version
-
-# Finalização

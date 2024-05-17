@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# Criar usuário Sonar
+# Criação do usuário Sonar
   sudo useradd sonar
 
-# Atualização do sistema e instalação de ferramentas básicas
+# Atualização do sistema e instalação de utilitários
 yum update -y
 yum install wget unzip java-11-openjdk-devel net-tools telnet -y
 
@@ -17,7 +17,7 @@ mv /opt/sonarqube-9.1.0.47736 /opt/sonarqube
 # Alterar proprietário do diretório SonarQube
 chown -R sonar:sonar /opt/sonarqube
 
-# Criar e configurar o serviço SonarQube systemd
+# Criação do arquivo de serviço do SonarQube
 touch /etc/systemd/system/sonar.service
 echo > /etc/systemd/system/sonar.service
 cat <<EOT >> /etc/systemd/system/sonar.service
@@ -49,7 +49,7 @@ mv /opt/sonar-scanner-4.6.2.2472-linux /opt/sonar-scanner
 # Alterar proprietário do diretório Sonar Scanner
 chown -R sonar:sonar /opt/sonar-scanner
 
-# Configurar PATH para Sonar Scanner (adicionado ao /etc/profile)
+# Configurar PATH para Sonar Scanner
 echo 'export PATH=$PATH:/opt/sonar-scanner/bin' | sudo tee -a /etc/profile
 
 # Instalar o Node.js
@@ -59,17 +59,7 @@ sudo yum install nodejs -y
 # Habilitar inicialização automática de serviços
 sudo systemctl enable sonar
 
-# Validação da instalação
-echo "Validando instalação..."
 
 # Verificar status do serviço SonarQube
-echo "Verificando status do serviço SonarQube..."
 systemctl status sonar | grep active
-
-# Verificar se o SonarQube está acessível
-echo "Verificando acessibilidade do SonarQube..."
-curl -s http://localhost:9000
-
-# Verificar versão do Sonar Scanner
-echo "Verificando versão do Sonar Scanner..."
 sonar-scanner --version
