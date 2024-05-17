@@ -148,6 +148,51 @@ copie a senha
 6. Marque "HTTP": `8123`
 7. Clique em "Save"
 
+# Editar arquivo hosts
+1. No Linux: /etc/hosts
+2. No Windows: C:\Windows\System32\drivers\etc\hosts
+- Adicione: 192.168.10.2 comments.devops-challenge.globo.local
+
+# Testando a API
+1. Acesse o Jenkins: localhost:8080
+2. Clique em API_Comentário
+3. Clique em Construir agora - aguarde a conclusão
+4. Se não der erro, acesse:
+- Lista 1: http://comments.devops-challenge.globo.local/api/comment/list/1
+- Deverá ter como retorno:
+[
+{
+"comment": "first post!",
+"email": "alice@example.com"
+},
+{
+"comment": "ok, now I am gonna say something more useful",
+"email": "alice@example.com"
+},
+{
+"comment": "I agree",
+"email": "bob@example.com"
+}
+]
+5. Lista 2: http://comments.devops-challenge.globo.local/api/comment/list/2
+- Deverá ter como retorno:
+[
+{
+"comment": "I guess this is a good thing",
+"email": "bob@example.com"
+},
+{
+"comment": "Indeed, dear Bob, I believe so as well",
+"email": "charlie@example.com"
+},
+{
+"comment": "Nah, you both are wrong",
+"email": "eve@example.com"
+}
+]
+
 # Prometheus / Grafana - Instalação
-1. Acessar a pasta `\VMs\PrometheusGrafana`
-2. Executar: `vagrant up`
+1. Acesse a pasta `\VMs\PrometheusGrafana`
+2. Execute: `vagrant up`
+
+...
