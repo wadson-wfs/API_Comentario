@@ -5,147 +5,150 @@ Ter instalado no WINDOWS:
 - Vagrant
 - Visual Studio Code (Todos os arquivos / comandos foram criados/executados pelo terminal)
 
-# Instalação do Sonarqube
+# Sonarqube - Instalação
 
-acessar a pasta Challenge\sonar
-executar:
-vagrant up
-vagrant provision
+1. Acessar a pasta `\VMs\sonar`
+2. Executar: `vagrant up`
 
-Após:
-acessar o sonar: localhost:9000
+# Sonarqube - Primeiro acesso
+1. Acesse: http://localhost:9000
 usuário: admin
 senha: admin
-* alterar a senha
+* Alterar a senha após o primeiro acesso
 
-# Instalar o Kubernets
-- acessar a pasta Challenge\k3s e executar:
-vagrant up
-vagrant provision
+# Sonarqube - Criar Token
+1. Acesse "My Account"
+2. Vá para "Security"
+3. Clique em "Generation Token"
+4. Nomeie o token como `"sonar-token"`
+5. Copie o token gerado
 
-# Instação do Jenkins
+# Sonarqube - Criar Projects
+1. Vá para "Projects".
+2. Clique em "Create Project"
+3. Escolha "Manual"
+4. Defina "Project display name" como `"API_Comentario"`
+5. Defina "Project key" como `"API_Comentario"`
 
-- acessar a pasta Challenge\jenkins e executar:
-vagrant up
-vagrant provision
+# Kubernets - Instalação
+1. Acessar a pasta `VMs\k3s`
+2. Executar: `vagrant up`
 
-- após instalação acessar via ssh
-vagrant ssh
+# Jenkins - Instalação
+1. Acessar a pasta `VMs\JenkinsNexus`
+2. Executar: `vagrant up`
 
-- copiar a senha do administrador: 
-sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-*copia a senha
+# Jenkins - Configurar o kuctl no jenkins
+1. Acesse o manager (MV do k3s) e execute `cat /etc/rancher/k3s/k3s.yaml`
+2. Acesse o Jenkins e edite o arquivo de configuração colando o conteúdo copiado
 
--acessar o jenkins: localhost:8080
-cola a senha
-
-- Instalar as extensões sugeridas
-
-criar usuário jenkins/jenkins
-
-- criar um trabalho
-- criar pipeline
-Nome: API_Comentario
-- Pipeline
-- Definition
-Pileline script
-- SCM
-Git
--repositório
-https://github.com/XXXX/API_Comentario.git
--Credentials:
--add
-
-# instalar extensão do sonar no jenkins
-- painel de controle
-- gerenciar jenkins
-- Plugins
-- Extensões disponíveis
-SonarQube Scanner
-instalar
-
-#configurar servidor do sonar no jenkins
-- painel de controle
-- gerenciar jenkins
-- System
-- SonarQube servers
-Environment variables
-Name: sonar-server
-server URL: http://192.168.10.6:9000
-- add Credentials
-- kind
-secret text
-- Secret
-copia o token do sonar
-- id
-secret-sonar
-
-# Configuar a ferramenta do sonar-scanner no Jenkins
-- painel de controle
-- Gerenciar Jenkins
-- Tools
-- SonarQube Scanner
-- Name
-sonar-scanner
-- SONAR_RUNNER_HOME
-/opt/sonar-scanner
-
-# Criando usuário nexus
-acessar via ssh o jenkins
-# acessar o docker no Nexux
-docker exec -it nexus bash
-cat /nexus-data/admin.password
-
-altere a senha para nexus, usuário admin
-disable anonymous access
-
-- server administration
-- usermod
-- create local user
-id: jenkins
-first name: jenkins
-last name: jenkins
-e-mail: jenkins@jenkins.com.br
-password: jenkins
-confirm password: jenkins
-status: Active
-roles: nx-admin
-
-# configurar o kuctl no jenkins
-Acessar o manager (MV do k3s) e copiar (cat /etc/rancher/k3s/k3s.yaml)
-Acessar o jenkins e editar o arquivo config e colar
 vi ~/.kube/config
 
-su -s /bin/bash jenkins
-ID
-kubectl
+# Jenkins - Primeiro Acesso
+1. Acesse o Jenkins via SSH
+2. Copie a senha do administrador:
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+3. Acesse o Jenkins em `http://localhost:8080` e cole a senha
+4. Instale as extensões sugeridas
+5. Crie o primeiro usuário admin:
+- Nome do usuário: `jenkins`
+- Senha: `jenkins`
+- Nome completo: `jenkins`
+- Endereço de e-mail: `jenkins@jenkins.com.br`
+6. Instancia Configuration
+- Mantenha o endereço: http://localhost:8080
 
-# criar repositório docker
+# Jenkins - Cria Pipeline
+1. Crie um novo trabalho
+2. Escolha "Pipeline"
+3. Nome: `API_Comentario`.
+4. Definition: "Pipeline script"
+5. SCM: "Git"
+6. Repositório: `https://github.com/wadson-wfs/API_Comentario.git`
+7. Credentials: "Add" / "Jenkins"
+- Domain: "Global Credentials"
+- Kind: "Username with password"
+- Username: "seu usuário"
+- Password: "token do git"
+- Add
+8. Branch: `*/master`
+9. Script Path: `Jenkinsfile`
 
-- repository
-- repositories
-- create repository
-docker (hosted)
-Name: docker-repo
-HTTP: 8123
+# Jenkins - Instalar extensão do sonarqube
+1. Vá para "Gerenciar Jenkins".
+2. "Plugins".
+3. "Extensões Disponíveis".
+4. Procure e instale "SonarQube Scanner"
 
-# Configurar o Nexus no Jenkins
-- painel de controle
-- gerenciar jenkins
-- System
-- Propriedades globais
-- Váriaveis de ambiente
-- Adicionar
+# Jenkins - Configurar servidor do sonarqube
+1. Vá para "Gerenciar Jenkins"
+2. "System"
+3. "SonarQube servers"
+4. Defina:
+- Name: `sonar-server`
+- Server URL: `http://192.168.10.6:9000`
+5. Adicione as Credentials:
+- Kind: "secret text"
+- Secret: [cole o token do sonar]
+- ID: `secret-sonar`
 
-nome: NEXUS_URL
-valor: localhost:8123
+# Jenkins - Configuar a ferramenta do sonar-scanner
+1. Vá para "Gerenciar Jenkins"
+2. "Tools"
+3. "SonarQube Scanner"
+4. Configure:
+- Name: `sonar-scanner`
+- SONAR_RUNNER_HOME: `/opt/sonar-scanner`
 
-- painel de controle
-- gerenciar jenkins
-- Credentials
-- System
-- Global credentials (unrestricted)
-- Add Credentials
-username: jenkins
-password: jenkins
-ID: nexus-user
+# Jenkins - Criar Variavel do Nexus
+1. Vá para "Gerenciar Jenkins"
+2. "System"
+3. "Propriedades Globais"
+4. "Variáveis de Ambiente"
+5. Adicione:
+- Nome: `NEXUS_URL`
+- Valor: `localhost:8123`
+
+# Jenkins - Criar Usuário do Nexus
+1. Vá para "Gerenciar Jenkins"
+2. "Credentials"
+3. "System"
+4. "Global credentials (unrestricted)"
+5. "Add Credentials"
+- Username: `jenkins`
+- Password: `jenkins`
+- ID: `nexus-user`
+
+# Nexus - Criando usuário
+1. Acesse o Jenkins via SSH.
+2. Entre no Docker:
+docker exec -it nexus bash
+3. Execute:
+cat /nexus-data/admin.password
+copie a senha
+4. Acesse `http://localhost:8081` e altere a senha para `nexus`, usuário `admin`
+5. Desative "anonymous access"
+
+# Nexus - Criando usuário jenkins
+1. Vá para "Server Administration"
+2. "User"
+3. "Create local user"
+- ID: `jenkins`
+- First name: `jenkins`
+- Last name: `jenkins`
+- E-mail: `jenkins@jenkins.com.br`
+- Password: `jenkins`
+- Confirm password: `jenkins`
+- Status: "Active"
+- Roles: `nx-admin`
+
+
+# Nexus - Criar repositório docker
+
+1. Vá para "Repository" / "Repositories"
+2. "Create repository"
+3. Escolha "Docker (hosted)"
+4. Name: `docker-repo`
+5. Marque: "Accept incoming requests"
+6. Marque "HTTP": `8123`
+7. Clique em "Save"

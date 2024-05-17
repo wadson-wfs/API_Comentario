@@ -19,7 +19,7 @@ cat <<EOF > /etc/rancher/k3s/registries.yaml
 mirrors:
   docker.io:
     endpoint:
-      - "https://192.168.10.5:8123"
+      - "http://192.168.10.5:8123"
 configs:
   "192.168.10.5:8123":
     auth:
@@ -34,6 +34,20 @@ systemctl restart k3s.service
 echo "Validando cluster K3s..."
 kubectl cluster-info
 
+# Configurar o Docker para usar um registro inseguro
+sudo mkdir -p /etc/docker
+echo '{
+  "insecure-registries": ["192.168.10.5:8123"]
+}' | sudo tee /etc/docker/daemon.json
+sudo systemctl restart docker
+
+# Criar o secret para o registro Docker no Kubernetes
+kubectl create secret docker-registry jenkins \
+  --docker-server=192.168.10.5:8123 \
+  --docker-username=jenkins \
+  --docker-password=jenkins \
+  --namespace=devops
+
 # Copiar informações do arquivo k3s.yaml para a área de transferência
-echo "Copiando informações do arquivo k3s.yaml para a área de transferência..."
+echo "Copie para a área de transferência e copie para o config no jenkins..."
 cat /etc/rancher/k3s/k3s.yaml
