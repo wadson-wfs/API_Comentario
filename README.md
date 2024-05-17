@@ -1,16 +1,14 @@
 # Considerações Gerais
-
 Ter instalado no WINDOWS:
 - Oracle VM Virtual BOX instalado
 - Vagrant
 - Visual Studio Code (Todos os arquivos / comandos foram criados/executados pelo terminal)
 
 # Sonarqube - Instalação
-
 1. Acessar a pasta `\VMs\sonar`
 2. Executar: `vagrant up`
 
-# Sonarqube - Primeiro acesso
+# Sonarqube - Primeiro Acesso
 1. Acesse: http://localhost:9000
 usuário: admin
 senha: admin
@@ -23,7 +21,7 @@ senha: admin
 4. Nomeie o token como `"sonar-token"`
 5. Copie o token gerado
 
-# Sonarqube - Criar Projects
+# Sonarqube - Criar Projetos
 1. Vá para "Projects".
 2. Clique em "Create Project"
 3. Escolha "Manual"
@@ -38,10 +36,9 @@ senha: admin
 1. Acessar a pasta `VMs\JenkinsNexus`
 2. Executar: `vagrant up`
 
-# Jenkins - Configurar o kuctl no jenkins
+# Jenkins - Configurar o kubectl no Jenkins
 1. Acesse o manager (MV do k3s) e execute `cat /etc/rancher/k3s/k3s.yaml`
 2. Acesse o Jenkins e edite o arquivo de configuração colando o conteúdo copiado
-
 vi ~/.kube/config
 
 # Jenkins - Primeiro Acesso
@@ -55,10 +52,10 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - Senha: `jenkins`
 - Nome completo: `jenkins`
 - Endereço de e-mail: `jenkins@jenkins.com.br`
-6. Instancia Configuration
+6. Configuração da Instância
 - Mantenha o endereço: http://localhost:8080
 
-# Jenkins - Cria Pipeline
+# Jenkins - Criar Pipeline
 1. Crie um novo trabalho
 2. Escolha "Pipeline"
 3. Nome: `API_Comentario`.
@@ -74,13 +71,13 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 8. Branch: `*/master`
 9. Script Path: `Jenkinsfile`
 
-# Jenkins - Instalar extensão do sonarqube
+# Jenkins - Instalar Extensão do Sonarqube
 1. Vá para "Gerenciar Jenkins".
 2. "Plugins".
 3. "Extensões Disponíveis".
 4. Procure e instale "SonarQube Scanner"
 
-# Jenkins - Configurar servidor do sonarqube
+# Jenkins - Configurar Servidor do Sonarqube
 1. Vá para "Gerenciar Jenkins"
 2. "System"
 3. "SonarQube servers"
@@ -92,7 +89,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - Secret: [cole o token do sonar]
 - ID: `secret-sonar`
 
-# Jenkins - Configuar a ferramenta do sonar-scanner
+# Jenkins - Configurar Ferramenta do Sonar-Scanner
 1. Vá para "Gerenciar Jenkins"
 2. "Tools"
 3. "SonarQube Scanner"
@@ -100,7 +97,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - Name: `sonar-scanner`
 - SONAR_RUNNER_HOME: `/opt/sonar-scanner`
 
-# Jenkins - Criar Variavel do Nexus
+# Jenkins - Criar Variável do Nexus
 1. Vá para "Gerenciar Jenkins"
 2. "System"
 3. "Propriedades Globais"
@@ -119,7 +116,7 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 - Password: `jenkins`
 - ID: `nexus-user`
 
-# Nexus - Criando usuário
+# Nexus - Primeiro Acesso
 1. Acesse o Jenkins via SSH.
 2. Entre no Docker:
 docker exec -it nexus bash
@@ -129,7 +126,7 @@ copie a senha
 4. Acesse `http://localhost:8081` e altere a senha para `nexus`, usuário `admin`
 5. Desative "anonymous access"
 
-# Nexus - Criando usuário jenkins
+# Nexus - Criar Usuário Jenkins
 1. Vá para "Server Administration"
 2. "User"
 3. "Create local user"
@@ -142,9 +139,7 @@ copie a senha
 - Status: "Active"
 - Roles: `nx-admin`
 
-
-# Nexus - Criar repositório docker
-
+# Nexus - Criar Repositório Docker
 1. Vá para "Repository" / "Repositories"
 2. "Create repository"
 3. Escolha "Docker (hosted)"
