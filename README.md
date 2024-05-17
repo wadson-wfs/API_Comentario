@@ -1,3 +1,9 @@
+# Introdução ao Projeto API Comentários
+Este projeto é uma implementação prática de uma API REST chamada "API Comentários", que permite aos internautas inserir e visualizar comentários sobre matérias em destaque. A API é estruturada com duas rotas principais: uma para inserção de comentários e outra para a listagem dos mesmos.
+
+# Objetivo do Projeto
+O principal objetivo deste projeto é criar uma infraestrutura automatizada que suporte a operação da API Comentários de forma eficiente e escalável. Para isso, foram adotadas práticas de Infraestrutura como Código (IaC), entrega e integração contínua (CI/CD)e um sistema de monitoramento para garantir a performance e a disponibilidade da aplicação.
+
 # Considerações Gerais
 Ter instalado no WINDOWS:
 - Oracle VM Virtual BOX instalado
