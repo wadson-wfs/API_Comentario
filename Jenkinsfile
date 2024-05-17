@@ -68,7 +68,7 @@ pipeline {
         stage('Criando Comentario'){
             steps{
                 sh 'chmod +x criando-comentario.sh'
-                sh './criando-comentario.sh.sh'
+                sh './criando-comentario.sh'
             }
         }
     }
