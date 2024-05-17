@@ -10,7 +10,7 @@ yum install wget unzip java-11-openjdk-devel net-tools telnet -y
 # Download do SonarQube
 wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-9.1.0.47736.zip
 
-# Descompactar e mover para diretório final
+# Descompactar e mover para diretório
 unzip sonarqube-9.1.0.47736.zip -d /opt/
 mv /opt/sonarqube-9.1.0.47736 /opt/sonarqube
 
@@ -42,7 +42,7 @@ systemctl start sonar
 # Download do Sonar Scanner
 wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip
 
-# Descompactar e mover para diretório final
+# Descompactar e mover para diretório
 unzip sonar-scanner-cli-4.6.2.2472-linux.zip -d /opt/
 mv /opt/sonar-scanner-4.6.2.2472-linux /opt/sonar-scanner
 
@@ -58,7 +58,6 @@ sudo yum install nodejs -y
 
 # Habilitar inicialização automática de serviços
 sudo systemctl enable sonar
-
 
 # Verificar status do serviço SonarQube
 systemctl status sonar | grep active

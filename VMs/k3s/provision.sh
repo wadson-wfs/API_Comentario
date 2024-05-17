@@ -3,7 +3,7 @@
 # Atualizar pacotes do sistema
 sudo yum update -y
 
-# Instalar ferramentas necessárias
+# Instalar utilitários
 sudo yum install git unzip telnet net-tools -y
 
 # Baixar e instalar o K3s
@@ -49,5 +49,5 @@ kubectl create secret docker-registry jenkins \
   --namespace=devops
 
 # Copiar informações do arquivo k3s.yaml para a área de transferência
-echo "Copie para a área de transferência e copie para o config no jenkins..."
+echo "Copie para a área de transferência e cole no config no jenkins..."
 cat /etc/rancher/k3s/k3s.yaml

@@ -4,7 +4,7 @@
 API_URL="http://192.168.10.2/api/comment"
 HOST_HEADER="Host: comments.devops-challenge.globo.local"
 
-# Criar comentários para o artigo 1
+# Criar comentários 1
 curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -H "$HOST_HEADER" -d '{
   "email": "alice@example.com",
   "comment": "first post!",
@@ -23,7 +23,7 @@ curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -H "$HOST_HE
   "content_id": 1
 }'
 
-# Criar comentários para o artigo 2
+# Criar comentários 2
 curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -H "$HOST_HEADER" -d '{
   "email": "bob@example.com",
   "comment": "I guess this is a good thing",

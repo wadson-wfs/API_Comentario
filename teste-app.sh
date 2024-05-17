@@ -3,7 +3,7 @@
 # Set the API endpoint URL
 API_URL="http://localhost:8000/api/comment"
 
-# Create comments for article 1
+# Criar coment[rio 1
 curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -d '{
   "email": "alice@example.com",
   "comment": "first post!",
@@ -22,7 +22,7 @@ curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -d '{
   "content_id": 1
 }'
 
-# Create comments for article 2
+# Criar comentario 2
 curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -d '{
   "email": "bob@example.com",
   "comment": "I guess this is a good thing",
@@ -41,7 +41,7 @@ curl -sv "$API_URL/new" -X POST -H 'Content-Type: application/json' -d '{
   "content_id": 2
 }'
 
-# List comments for article 1
+# Listar comentario 1
 curl_result=$(curl -sv "$API_URL/list/1")
 curl_status_code=$(echo "$curl_result" | jq -r '. | length')
 
@@ -52,7 +52,7 @@ else
   exit 1
 fi
 
-# List comments for article 2
+# Listar cometario 2
 curl_result=$(curl -sv "$API_URL/list/2")
 curl_status_code=$(echo "$curl_result" | jq -r '. | length')
 

@@ -6,8 +6,6 @@ sudo yum update -y
 # Instalação de utilitários
 sudo yum install -y wget git net-tools nano
 
-# Passo 1: Configura e instala o Prometheus
-
 # Baixa o Prometheus
 sudo wget https://github.com/prometheus/prometheus/releases/download/v2.45.5/prometheus-2.45.5.linux-amd64.tar.gz
 sudo tar xvf prometheus-2.45.5.linux-amd64.tar.gz
@@ -48,7 +46,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable prometheus
 sudo systemctl start prometheus
 
-# Passo 2: Configura e instala o Grafana
+# Configura e instala o Grafana
 sudo tee /etc/yum.repos.d/grafana.repo <<EOF
 [grafana]
 name=Grafana
